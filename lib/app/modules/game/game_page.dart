@@ -1,9 +1,13 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:eventos_catan/app/models/dice.dart';
 import 'package:eventos_catan/app/widget/dialog.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:eventos_catan/app/modules/game/game_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:eventos_catan/app/models/card.dart';
+
+import 'dice_store.dart';
 
 class GamePage extends StatefulWidget {
   final String title;
@@ -14,6 +18,20 @@ class GamePage extends StatefulWidget {
 
 class GamePageState extends State<GamePage> {
   final GameStore store = Modular.get();
+  final DiceStore diceStore = Modular.get();
+  final assetsAudioPlayer = AssetsAudioPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+    assetsAudioPlayer.open(
+      Audio("assets/audio/dice-rolling.mp3"),
+    );
+  }
+
+  void play() {
+    assetsAudioPlayer.playOrPause();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,31 +53,55 @@ class GamePageState extends State<GamePage> {
               icon: Icon(Icons.clear_all_outlined))
         ],
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: Column(
-            children: <Widget>[
-              ScopedBuilder(
-                store: store,
-                onLoading: (context) => CircularProgressIndicator(),
-                onState: (context, GameCard card) => GestureDetector(
-                  onDoubleTap: () => store.nextCard(),
-                  child: Image.asset(
-                    card.imageName,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              )
-            ],
+      body: Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Column(
+                children: <Widget>[
+                  ScopedBuilder(
+                    store: store,
+                    onLoading: (context) => CircularProgressIndicator(),
+                    onState: (context, GameCard card) => GestureDetector(
+                      onDoubleTap: () {
+                        play();
+                        store.nextCard();
+                        diceStore.getFace();
+                      },
+                      child: Image.asset(
+                        card.imageName,
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
-        ),
+          Padding(
+              padding: const EdgeInsets.only(left: 8.0, top: 20),
+              child: ScopedBuilder(
+                store: diceStore,
+                onState: (context, Dice state) => state.disabled
+                    ? Container()
+                    : Image.asset(
+                        state.image,
+                        width: 50,
+                        height: 50,
+                      ),
+              )),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {store.nextCard()},
+        onPressed: () {
+          play();
+          store.nextCard();
+          diceStore.getFace();
+        },
         child: Icon(Icons.refresh),
       ),
     );
