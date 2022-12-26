@@ -26,17 +26,21 @@ class GamePageState extends State<GamePage> {
   final ErasStore erasStore = Modular.get();
   final ConfigStore configStore = Modular.get();
   final assetsAudioPlayer = AssetsAudioPlayer();
+  bool audioLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    assetsAudioPlayer.open(
-      Audio("assets/audio/dice-rolling.mp3"),
-    );
   }
 
-  void play() {
-    assetsAudioPlayer.playOrPause();
+  void play() async {
+    if (!audioLoaded) {
+      audioLoaded = true;
+      await assetsAudioPlayer.open(
+        Audio("assets/audio/dice-rolling.mp3"),
+      );
+    }
+    assetsAudioPlayer.play();
   }
 
   @override
@@ -53,7 +57,7 @@ class GamePageState extends State<GamePage> {
                             "Você tem certeza que deseja reiniciar o jogo?",
                         onPress: () {
                       Navigator.pop(context);
-                      store.clearDeck();
+                      Modular.to.navigate("/config");
                     })
                   },
               icon: Icon(Icons.clear_all_outlined))
