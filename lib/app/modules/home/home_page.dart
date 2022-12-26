@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Catan Card Events'),
+        title: Text('Catan'),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -35,9 +35,10 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Image.asset("assets/catan-logo.png"),
             ElevatedButton(
                 onPressed: () {
-                  Modular.to.navigate("/game");
+                  Modular.to.pushNamed("/config");
                 },
                 child: Text("Novo jogo"))
           ],
