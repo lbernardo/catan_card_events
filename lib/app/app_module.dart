@@ -1,5 +1,6 @@
 import 'package:eventos_catan/app/modules/config/config_module.dart';
 import 'package:eventos_catan/app/modules/config/config_store.dart';
+import 'package:eventos_catan/app/modules/dice/dice_module.dart';
 import 'package:eventos_catan/app/modules/game/game_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -23,6 +24,7 @@ class AppModule extends Module {
     ModuleRoute('/config',
         module: ConfigModule(), transition: TransitionType.leftToRight),
     ModuleRoute('/game',
-        module: GameModule(), transition: TransitionType.rightToLeft)
+        module: GameModule(), transition: TransitionType.rightToLeft),
+    ModuleRoute('/dice', module: DiceModule()),
   ];
 }

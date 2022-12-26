@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:eventos_catan/app/models/card.dart';
 import 'package:eventos_catan/app/models/config.dart';
+import 'package:eventos_catan/app/models/event.dart';
 import 'package:eventos_catan/app/modules/config/config_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -9,12 +9,13 @@ import 'package:flutter_triple/flutter_triple.dart';
 
 import 'eras_store.dart';
 
-class GameStore extends NotifierStore<Exception, GameCard> {
-  GameStore() : super(GameCard("assets/cards/none.png"));
+class GameStore extends NotifierStore<Exception, Event> {
+  GameStore() : super(none());
   bool isNewYear = false;
   int countYears = 0;
 
-  List<GameCard> deck = createDeck();
+  List<Event> deck = createDeck();
+
   final ConfigStore config = Modular.get();
   final ErasStore erasStore = Modular.get();
 
@@ -22,7 +23,7 @@ class GameStore extends NotifierStore<Exception, GameCard> {
   void initStore() {
     super.initStore();
     deck.shuffle();
-    deck.add(GameCard("assets/cards/new_year.png", newYear: true));
+    deck.add(newYear());
   }
 
   clearDeck() async {
@@ -31,22 +32,19 @@ class GameStore extends NotifierStore<Exception, GameCard> {
     isNewYear = false;
     countYears = 0;
     deck.shuffle();
-    deck.add(GameCard("assets/cards/new_year.png", newYear: true));
-    update(GameCard("assets/cards/none.png"));
+    deck.shuffle();
+    deck.add(newYear());
+    update(none());
     setLoading(false);
   }
 
   nextCard() async {
-    // print("Clicou");
     if (!isNewYear) {
       setLoading(true);
-      GameCard card = deck[0];
-      // print("Remove ${card.imageName}");
+      Event card = deck[0];
       deck.removeAt(0);
-      // print("Show card ${card.imageName}");
       update(card);
 
-      // If is new year refresh game
       if (card.newYear) {
         isNewYear = true;
       }
@@ -70,9 +68,8 @@ class GameStore extends NotifierStore<Exception, GameCard> {
     deck = createDeck();
     isNewYear = false;
     deck.shuffle();
-    deck.add(GameCard("assets/cards/new_year.png", newYear: true));
-    await Future.delayed(Duration(seconds: 2));
-    update(GameCard("assets/cards/none.png"));
+    deck.add(newYear());
+    update(none());
     setLoading(false);
   }
 }

@@ -17,7 +17,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 2.0.2+1
+version: 3.0.0+1
 
 environment:
   sdk: ">=2.18.6 <3.0.0"
@@ -67,57 +67,31 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/events/none.png
+    - assets/events/new_year.png
+    - assets/events/ladrao.png
+    - assets/events/epidemia.png
+    - assets/events/trabalho.png
+    - assets/events/bons_vizinhos.png
+    - assets/events/terremoto.png
+    - assets/events/mares_calmos.png
+    - assets/events/assistencia_vizinhanca.png
+    - assets/events/ano_de_abundancia.png
+    - assets/events/ladrao_foge.png
+    - assets/events/vantagem_comercial.png
+    - assets/events/torneio.png
+    - assets/events/conflito.png
     - assets/catan-logo.png
-    - assets/cards/none.png
-    - assets/cards/new_year.png
-    - assets/cards/c1.png
-    - assets/cards/c2.png
-    - assets/cards/c3.png
-    - assets/cards/c4.png
-    - assets/cards/c5.png
-    - assets/cards/c6.png
-    - assets/cards/c7.png
-    - assets/cards/c8.png
-    - assets/cards/c9.png
-    - assets/cards/c10.png
-    - assets/cards/c11.png
-    - assets/cards/c12.png
-    - assets/cards/c13.png
-    - assets/cards/c14.png
-    - assets/cards/c15.png
-    - assets/cards/c16.png
-    - assets/cards/c17.png
-    - assets/cards/c18.png
-    - assets/cards/c19.png
-    - assets/cards/c20.png
-    - assets/cards/c21.png
-    - assets/cards/c22.png
-    - assets/cards/c23.png
-    - assets/cards/c24.png
-    - assets/cards/c25.png
-    - assets/cards/c26.png
-    - assets/cards/c27.png
-    - assets/cards/c28.png
-    - assets/cards/c29.png
-    - assets/cards/c30.png
-    - assets/cards/c31.png
-    - assets/cards/c32.png
-    - assets/cards/c33.png
-    - assets/cards/c34.png
-    - assets/cards/c35.png
-    - assets/cards/c36.png
-    - assets/cards/c37.png
-    - assets/cards/c38.png
-    - assets/cards/c39.png
-    - assets/cards/c40.png
-    - assets/cards/c41.png
-    - assets/cards/c42.png
-    - assets/cards/c43.png
-    - assets/cards/c44.png
     - assets/dice/blue_dice.png
     - assets/dice/green_dice.png
     - assets/dice/ship.png
     - assets/dice/yellow_dice.png
+    - assets/dice/1.png
+    - assets/dice/2.png
+    - assets/dice/3.png
+    - assets/dice/4.png
+    - assets/dice/5.png
+    - assets/dice/6.png
     # Audio
     - assets/audio/dice-rolling.mp3
 

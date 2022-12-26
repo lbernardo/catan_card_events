@@ -1,13 +1,12 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:eventos_catan/app/models/config.dart';
 import 'package:eventos_catan/app/models/dice.dart';
+import 'package:eventos_catan/app/models/event.dart';
 import 'package:eventos_catan/app/modules/config/config_store.dart';
 import 'package:eventos_catan/app/widget/dialog.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:eventos_catan/app/modules/game/game_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_triple/flutter_triple.dart';
-import 'package:eventos_catan/app/models/card.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'dice_store.dart';
@@ -45,92 +44,121 @@ class GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Jogo iniciado"),
-        actions: [
-          IconButton(
-              onPressed: () => {
-                    confirmDialog(context,
-                        title: "Reiniciar jogo",
-                        content:
-                            "Você tem certeza que deseja reiniciar o jogo?",
-                        onPress: () {
-                      Navigator.pop(context);
-                      Modular.to.navigate("/config");
-                    })
-                  },
-              icon: Icon(Icons.clear_all_outlined))
-        ],
-      ),
-      body: Column(
-        children: [
-          ScopedBuilder(
-            store: erasStore,
-            onState: (context, state) => Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(
-                "${state}º era",
-                style: GoogleFonts.pacifico(
-                    fontSize: 20,
-                    color: state == configStore.state.eras
-                        ? Colors.redAccent
-                        : Colors.black),
-              ),
-            ),
-          ),
-          Stack(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Column(
-                    children: <Widget>[
-                      ScopedBuilder(
-                        store: store,
-                        onLoading: (context) => CircularProgressIndicator(),
-                        onState: (context, GameCard card) => GestureDetector(
-                          onDoubleTap: () {
-                            play();
-                            store.nextCard();
-                            diceStore.getFace();
-                          },
-                          child: Image.asset(
-                            card.imageName,
-                            width: MediaQuery.of(context).size.width,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      )
-                    ],
+    return ScopedBuilder(
+      store: store,
+      onState: (context, Event event) => Scaffold(
+        appBar: AppBar(
+          title: Text(event.title),
+          centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () => {
+                      confirmDialog(context,
+                          title: "Reiniciar jogo",
+                          content:
+                              "Você tem certeza que deseja reiniciar o jogo?",
+                          onPress: () {
+                        Navigator.pop(context);
+                        Modular.to.navigate("/config");
+                      })
+                    },
+                icon: Icon(Icons.clear_all_outlined))
+          ],
+        ),
+        body: Container(
+          color: Color.fromARGB(255, 255, 234, 234),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: <Widget>[
+              ScopedBuilder(
+                store: erasStore,
+                onState: (context, state) => Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    "${state}º era",
+                    style: GoogleFonts.pacifico(
+                        fontSize: 20,
+                        color: state == configStore.state.eras
+                            ? Colors.redAccent
+                            : Colors.black),
                   ),
                 ),
               ),
-              Padding(
-                  padding: const EdgeInsets.only(left: 8.0, top: 10),
-                  child: ScopedBuilder(
-                    store: diceStore,
-                    onState: (context, Dice state) => state.disabled
-                        ? Container()
-                        : Image.asset(
-                            state.image,
-                            width: 50,
-                            height: 50,
-                          ),
-                  )),
+              SizedBox(
+                height: 30,
+              ),
+              event.none
+                  ? Image.asset(
+                      event.imageUrl,
+                      width: MediaQuery.of(context).size.width,
+                      fit: BoxFit.cover,
+                    )
+                  : Column(
+                      children: [
+                        Image.asset(
+                          event.imageUrl,
+                          width: 300,
+                          fit: BoxFit.fitWidth,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, right: 8, top: 15, bottom: 0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: event.actions
+                                  .map<Widget>((e) => Text(
+                                        e,
+                                        style: TextStyle(fontSize: 18),
+                                      ))
+                                  .toList()),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 100,
+                          margin: EdgeInsets.only(top: 50),
+                          child: Center(
+                              child: Text(
+                            '${event.value}',
+                            style: TextStyle(color: Colors.white, fontSize: 40),
+                          )),
+                          decoration: BoxDecoration(
+                              color: Colors.orange, shape: BoxShape.circle),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            ScopedBuilder(
+                              store: diceStore,
+                              onState: (context, Dice state) => state.disabled
+                                  ? Container()
+                                  : Image.asset(
+                                      state.image,
+                                      width: 50,
+                                      height: 50,
+                                    ),
+                            ),
+                            Image.asset(
+                              "assets/dice/${event.dice}.png",
+                              width: 50,
+                              height: 50,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
             ],
           ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          play();
-          store.nextCard();
-          diceStore.getFace();
-        },
-        child: Icon(Icons.refresh),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            play();
+            store.nextCard();
+            diceStore.getFace();
+          },
+          child: Icon(Icons.refresh),
+        ),
       ),
     );
   }
