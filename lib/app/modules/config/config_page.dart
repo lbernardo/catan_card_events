@@ -67,7 +67,7 @@ class ConfigPageState extends State<ConfigPage> {
           child: Column(
             children: <Widget>[
               Text(
-                "Você deseja jogar com eras?",
+                "Você deseja jogar com limite de eras?",
                 style: styleTextDefault,
               ),
               RadioListTile(
@@ -110,7 +110,7 @@ class ConfigPageState extends State<ConfigPage> {
                           child: Container(
                             decoration: _getShadowDecoration(),
                             child: DirectSelectList<int>(
-                                values: [for (var i = 1; i <= 30; i += 1) i],
+                                values: [for (var i = 5; i <= 30; i += 1) i],
                                 defaultItemIndex: 5,
                                 itemBuilder: (int value) =>
                                     getDropDownMenuItem(value),
