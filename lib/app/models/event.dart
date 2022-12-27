@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class Event {
   String title;
   String imageUrl;
@@ -164,6 +166,37 @@ conflito(int value, int dice) {
       dice: dice);
 }
 
+carestia() {
+  return Event(
+      title: "Carestia",
+      imageUrl: "assets/events/carestia.png",
+      actions: [
+        "São tempos dificies! Cada jogador deve devolver um recurso a sua escolha para banco!"
+      ],
+      value: 0,
+      dice: Random().nextInt(6) + 1);
+}
+
+escambo() {
+  return Event(
+      title: "Escambo",
+      imageUrl: "assets/events/escambo.png",
+      actions: ["Todos os jogadores podem realizar uma troca 1:1 com o banco"],
+      value: 0,
+      dice: Random().nextInt(6) + 1);
+}
+
+vacas_gordas() {
+  return Event(
+      title: "Vacas gordas",
+      imageUrl: "assets/events/vacas_gordas.png",
+      actions: [
+        "Cada jogador pega um recurso adjacente a cada cidade/aldeia que tenha"
+      ],
+      value: 0,
+      dice: Random().nextInt(6) + 1);
+}
+
 List<Event> createDeck() {
   return [
     ladraoAtaca(7, 1),
@@ -187,14 +220,17 @@ List<Event> createDeck() {
     colonizadoresTrabalham(10, 5),
     colonizadoresTrabalham(11, 6),
     colonizadoresTrabalham(4, 1),
+    carestia(),
     colonizadoresTrabalham(10, 6),
     colonizadoresTrabalham(9, 5),
     colonizadoresTrabalham(8, 4),
     colonizadoresTrabalham(8, 6),
     anoDeAbundancia(2, 1),
+    escambo(),
     colonizadoresTrabalham(3, 2),
     ladraoFoge(4, 3),
     vantagemComercial(5, 4),
+    vacas_gordas(),
     torneio(5, 3),
     ladraoFoge(4, 2),
     conflito(3, 1),
