@@ -7,6 +7,10 @@ class Points extends NotifierStore<Exception, int> {
     update(state + 1);
   }
 
+  removePoint() {
+    update(state - 1);
+  }
+
   clearPoints() {
     update(3);
   }

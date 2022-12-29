@@ -1,5 +1,6 @@
 import 'package:eventos_catan/app/modules/points/blue_points.dart_store.dart';
 import 'package:eventos_catan/app/modules/points/orange_points.dart_store.dart';
+import 'package:eventos_catan/app/modules/points/points.dart';
 import 'package:eventos_catan/app/modules/points/red_points.dart_store.dart';
 import 'package:eventos_catan/app/modules/points/white_points.dart_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -14,10 +15,10 @@ class PointsPage extends StatefulWidget {
   PointsPageState createState() => PointsPageState();
 }
 
-Widget counter(
-    {required void Function()? onTab, value = 0, color = Colors.orange}) {
+Widget counter({required Points store, value = 0, color = Colors.orange}) {
   return GestureDetector(
-    onTap: onTab,
+    onTap: () => store.addPoint(),
+    onLongPress: () => store.removePoint(),
     child: Container(
       width: 100,
       height: 100,
@@ -54,20 +55,14 @@ class PointsPageState extends State<PointsPage> {
                 ScopedBuilder(
                   store: orangePoints,
                   onState: (context, state) => counter(
-                      onTab: () {
-                        orangePoints.addPoint();
-                      },
+                      store: orangePoints,
                       color: Colors.orange,
                       value: '${state}'),
                 ),
                 ScopedBuilder(
                   store: bluePoints,
                   onState: (context, state) => counter(
-                      onTab: () {
-                        bluePoints.addPoint();
-                      },
-                      color: Colors.blue,
-                      value: '${state}'),
+                      store: bluePoints, color: Colors.blue, value: '${state}'),
                 ),
               ],
             ),
@@ -77,18 +72,12 @@ class PointsPageState extends State<PointsPage> {
                 ScopedBuilder(
                   store: redPoints,
                   onState: (context, state) => counter(
-                      onTab: () {
-                        redPoints.addPoint();
-                      },
-                      color: Colors.red,
-                      value: '${state}'),
+                      store: redPoints, color: Colors.red, value: '${state}'),
                 ),
                 ScopedBuilder(
                   store: whitePoints,
                   onState: (context, state) => counter(
-                      onTab: () {
-                        whitePoints.addPoint();
-                      },
+                      store: whitePoints,
                       color: Colors.grey,
                       value: '${state}'),
                 ),
