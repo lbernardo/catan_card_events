@@ -4,6 +4,10 @@ import 'package:direct_select_flutter/direct_select_list.dart';
 import 'package:eventos_catan/app/models/config.dart';
 import 'package:eventos_catan/app/modules/game/eras_store.dart';
 import 'package:eventos_catan/app/modules/game/game_store.dart';
+import 'package:eventos_catan/app/modules/points/blue_points.dart_store.dart';
+import 'package:eventos_catan/app/modules/points/orange_points.dart_store.dart';
+import 'package:eventos_catan/app/modules/points/red_points.dart_store.dart';
+import 'package:eventos_catan/app/modules/points/white_points.dart_store.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:eventos_catan/app/modules/config/config_store.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +23,10 @@ class ConfigPageState extends State<ConfigPage> {
   final ConfigStore store = Modular.get();
   final ErasStore erasStore = Modular.get();
   final GameStore gameStore = Modular.get();
+  final BluePointsStore bluePoints = Modular.get();
+  final RedPointsStore redPoints = Modular.get();
+  final OrangePointsStore orangePoints = Modular.get();
+  final WhitePointsStore whitePoints = Modular.get();
   String? withEras;
   int eras = 10;
   final TextStyle styleTextDefault =
@@ -110,8 +118,8 @@ class ConfigPageState extends State<ConfigPage> {
                           child: Container(
                             decoration: _getShadowDecoration(),
                             child: DirectSelectList<int>(
-                                values: [for (var i = 5; i <= 30; i += 1) i],
-                                defaultItemIndex: 5,
+                                values: [for (var i = 3; i <= 15; i += 1) i],
+                                defaultItemIndex: 0,
                                 itemBuilder: (int value) =>
                                     getDropDownMenuItem(value),
                                 focusedItemDecoration: _getDslDecoration(),
@@ -132,6 +140,10 @@ class ConfigPageState extends State<ConfigPage> {
           store.setConfig(withEras == "yes", eras);
           erasStore.clearEra();
           gameStore.clearDeck();
+          bluePoints.clearPoints();
+          redPoints.clearPoints();
+          whitePoints.clearPoints();
+          orangePoints.clearPoints();
           Modular.to.navigate("/game");
         },
         child: Icon(Icons.check),

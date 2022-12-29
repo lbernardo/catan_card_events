@@ -7,6 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:eventos_catan/app/modules/game/game_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_triple/flutter_triple.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'dice_store.dart';
@@ -52,6 +53,11 @@ class GamePageState extends State<GamePage> {
           centerTitle: true,
           actions: [
             IconButton(
+                onPressed: () {
+                  Modular.to.pushNamed("/points");
+                },
+                icon: Icon(FontAwesome5.coins)),
+            IconButton(
                 onPressed: () => {
                       confirmDialog(context,
                           title: "Reiniciar jogo",
@@ -62,7 +68,7 @@ class GamePageState extends State<GamePage> {
                         Modular.to.navigate("/config");
                       })
                     },
-                icon: Icon(Icons.clear_all_outlined))
+                icon: Icon(Icons.clear_all_outlined)),
           ],
         ),
         body: Container(
@@ -119,7 +125,7 @@ class GamePageState extends State<GamePage> {
                           margin: EdgeInsets.only(top: 50),
                           child: Center(
                               child: Text(
-                            '${event.value}',
+                            event.value == 0 ? '-' : '${event.value}',
                             style: TextStyle(color: Colors.white, fontSize: 40),
                           )),
                           decoration: BoxDecoration(
