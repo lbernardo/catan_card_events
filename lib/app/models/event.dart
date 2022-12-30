@@ -44,7 +44,7 @@ ladraoAtaca(int value, int dice) {
       title: "Ladrão ataca",
       imageUrl: "assets/events/ladrao.png",
       actions: [
-        "1. Cada jogador com mais que 7 cartas descarta metada",
+        "Cada jogador com mais que 7 cartas descarta metade",
         "2. Mova o ladrão para um hexágono e retire aleatoriamente uma carta de 1 jogador qualquer com uma aldeia e/ou cidade no novo hexágono do Ladrão"
       ],
       value: value,
@@ -76,7 +76,7 @@ bonsVizinhos(int value, int dice) {
       title: "Bons vizinhos",
       imageUrl: "assets/events/bons_vizinhos.png",
       actions: [
-        "Cada jogador da ao jogador a sua esqueda 1 recurso a sua escolha (se tiver um)"
+        "Cada jogador da ao jogador a sua esqueda 1 recurso a sua escolha (se tiver recurso)"
       ],
       value: value,
       dice: dice);
@@ -87,7 +87,7 @@ terremoto(int value, int dice) {
       title: "Terremoto",
       imageUrl: "assets/events/terremoto.png",
       actions: [
-        "Cada jogador gira uma de suas estradas, deixando-as na horizontal. Vocês não podem construir estradas até que sua estrada girada esteja reparada. O reparo custa o mesmo valor de construção. Esse evento não afeta a carta de maior estrada construida"
+        "Cada jogador gira uma de suas estradas, deixando-as na horizontal. Vocês não podem construir estradas até que sua estrada girada esteja reparada. O reparo custa o mesmo valor de construção. Esse evento não afeta a carta de maior estrada construída"
       ],
       value: value,
       dice: dice);
@@ -98,7 +98,7 @@ maresCalmos(int value, int dice) {
       title: "Mares calmos",
       imageUrl: "assets/events/mares_calmos.png",
       actions: [
-        "O(s) jogador(es) com mais portos recebe 1 recurso a sua escolha. Se houver mais de um com a mesma quantidade de portos, os 2 ou mais ganham!"
+        "O(s) jogador(es) com mais portos recebem 1 recurso a sua escolha. Se houver mais de um com a mesma quantidade de portos, os 2 ou mais ganham!"
       ],
       value: value,
       dice: dice);
@@ -109,7 +109,7 @@ assistenciaDaVizinhanca(int value, int dice) {
       title: "Assistência da vizinhança",
       imageUrl: "assets/events/assistencia_vizinhanca.png",
       actions: [
-        "O jogador com mais pontos de vitória (se houver) da ao com menos pontos, 1 carta de recurso a sua escolha. Se você não tiver recursos, eleja um dos jogadores para dar 1 recurso"
+        "O jogador com mais pontos de vitória (se houver), dá ao com menos pontos, 1 carta de recurso à sua escolha. Se você não tiver recursos, eleja um dos jogadores para dar 1 recurso"
       ],
       value: value,
       dice: dice);
@@ -171,7 +171,7 @@ carestia() {
       title: "Carestia",
       imageUrl: "assets/events/carestia.png",
       actions: [
-        "São tempos dificies! Cada jogador deve devolver um recurso a sua escolha para banco!"
+        "São tempos difíceis! Cada jogador deve devolver um recurso a sua escolha para o banco!"
       ],
       value: 0,
       dice: Random().nextInt(6) + 1);
