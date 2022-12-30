@@ -138,6 +138,7 @@ class ConfigPageState extends State<ConfigPage> {
         onPressed: () {
           print("${withEras} and ${eras}");
           store.setConfig(withEras == "yes", eras);
+          erasStore.clearEra();
           gameStore.clearDeck();
           bluePoints.clearPoints();
           redPoints.clearPoints();
