@@ -28,7 +28,7 @@ class ConfigPageState extends State<ConfigPage> {
   final OrangePointsStore orangePoints = Modular.get();
   final WhitePointsStore whitePoints = Modular.get();
   String? withEras;
-  int eras = 10;
+  int eras = 3;
   final TextStyle styleTextDefault =
       TextStyle(fontWeight: FontWeight.bold, fontSize: 15);
 
@@ -138,7 +138,6 @@ class ConfigPageState extends State<ConfigPage> {
         onPressed: () {
           print("${withEras} and ${eras}");
           store.setConfig(withEras == "yes", eras);
-          erasStore.clearEra();
           gameStore.clearDeck();
           bluePoints.clearPoints();
           redPoints.clearPoints();

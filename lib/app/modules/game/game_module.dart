@@ -1,4 +1,3 @@
-import 'package:eventos_catan/app/modules/game/dice_store.dart';
 import 'package:eventos_catan/app/modules/game/end_game_page.dart';
 import 'package:eventos_catan/app/modules/game/eras_store.dart';
 import 'package:eventos_catan/app/modules/game/game_page.dart';
