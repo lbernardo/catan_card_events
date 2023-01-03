@@ -2,6 +2,7 @@ import 'package:eventos_catan/app/modules/config/config_module.dart';
 import 'package:eventos_catan/app/modules/config/config_store.dart';
 import 'package:eventos_catan/app/modules/game/game_module.dart';
 import 'package:eventos_catan/app/modules/game/title_store.dart';
+import 'package:eventos_catan/app/modules/players/players_module.dart';
 import 'package:eventos_catan/app/modules/points/blue_points.dart_store.dart';
 import 'package:eventos_catan/app/modules/points/orange_points.dart_store.dart';
 import 'package:eventos_catan/app/modules/points/points_module.dart';
@@ -35,5 +36,7 @@ class AppModule extends Module {
         module: GameModule(), transition: TransitionType.rightToLeft),
     ModuleRoute('/points',
         module: PointsModule(), transition: TransitionType.rightToLeft),
+    ModuleRoute("/players",
+        module: PlayersModule(), transition: TransitionType.rightToLeft)
   ];
 }

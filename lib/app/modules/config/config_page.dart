@@ -32,6 +32,11 @@ class ConfigPageState extends State<ConfigPage> {
   final TextStyle styleTextDefault =
       TextStyle(fontWeight: FontWeight.bold, fontSize: 15);
 
+  bool bluePlayer = false;
+  bool redPlayer = false;
+  bool orangePlayer = false;
+  bool whitePlayer = false;
+
   DirectSelectItem<int> getDropDownMenuItem(int value) {
     return DirectSelectItem<int>(
         itemHeight: 56,
@@ -74,6 +79,38 @@ class ConfigPageState extends State<ConfigPage> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: <Widget>[
+              Text(
+                "Quem esta jogando?",
+                style: styleTextDefault,
+              ),
+              CheckboxListTile(
+                value: bluePlayer,
+                onChanged: (v) => setState(() {
+                  bluePlayer = v!;
+                }),
+                title: Text("Azul"),
+              ),
+              CheckboxListTile(
+                value: redPlayer,
+                onChanged: (v) => setState(() {
+                  redPlayer = v!;
+                }),
+                title: Text("Vermelho"),
+              ),
+              CheckboxListTile(
+                value: whitePlayer,
+                onChanged: (v) => setState(() {
+                  whitePlayer = v!;
+                }),
+                title: Text("Branco"),
+              ),
+              CheckboxListTile(
+                value: orangePlayer,
+                onChanged: (v) => setState(() {
+                  orangePlayer = v!;
+                }),
+                title: Text("Laranja"),
+              ),
               Text(
                 "Você deseja jogar com limite de eras?",
                 style: styleTextDefault,
@@ -137,14 +174,27 @@ class ConfigPageState extends State<ConfigPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print("${withEras} and ${eras}");
-          store.setConfig(withEras == "yes", eras);
+          List<Color> players = [];
+          if (bluePlayer) {
+            players.add(Colors.blueAccent);
+          }
+          if (redPlayer) {
+            players.add(Colors.redAccent);
+          }
+          if (orangePlayer) {
+            players.add(Colors.orangeAccent);
+          }
+          if (whitePlayer) {
+            players.add(Colors.white70);
+          }
+          store.setConfig(withEras == "yes", eras, players);
           erasStore.clearEra();
           gameStore.clearDeck();
           bluePoints.clearPoints();
           redPoints.clearPoints();
           whitePoints.clearPoints();
           orangePoints.clearPoints();
-          Modular.to.navigate("/game");
+          Modular.to.pushNamed("/players");
         },
         child: Icon(Icons.check),
       ),

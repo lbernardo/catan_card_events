@@ -14,15 +14,21 @@ class GameStore extends NotifierStore<Exception, List<Event>> {
   GameStore() : super([]);
 
   List<Event> deck = createDeck();
+  List<Color> players = [];
 
   final ConfigStore config = Modular.get();
   final ErasStore erasStore = Modular.get();
   final TitleStore titleStore = Modular.get();
 
-  @override
-  void initStore() {
-    super.initStore();
+  initDeck() {
     deck.shuffle();
+    players = config.state.players;
+    deck = deck.map((e) {
+      Color player = players.removeAt(0);
+      e.player = player;
+      players.add(player);
+      return e;
+    }).toList();
     deck.add(newYear());
     update(deck);
   }
@@ -32,6 +38,14 @@ class GameStore extends NotifierStore<Exception, List<Event>> {
     deck = createDeck();
     deck.shuffle();
     deck.shuffle();
+    if (players.length > 0) {
+      deck = deck.map((e) {
+        Color player = players.removeAt(0);
+        e.player = player;
+        players.add(player);
+        return e;
+      }).toList();
+    }
     deck.add(newYear());
     update(deck);
     setLoading(false);

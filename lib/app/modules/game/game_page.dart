@@ -31,6 +31,7 @@ class GamePageState extends State<GamePage> {
   @override
   void initState() {
     super.initState();
+    store.initDeck();
   }
 
   void play() async {
@@ -142,7 +143,7 @@ class GamePageState extends State<GamePage> {
                                                 fontSize: 40),
                                           )),
                                           decoration: BoxDecoration(
-                                              color: Colors.orange,
+                                              color: Colors.lightGreen,
                                               shape: BoxShape.circle),
                                         ),
                                   event.newYear
@@ -162,6 +163,21 @@ class GamePageState extends State<GamePage> {
                                               height: 50,
                                             )
                                           ],
+                                        ),
+                                  event.newYear
+                                      ? Container()
+                                      : Container(
+                                          width: 50,
+                                          height: 50,
+                                          child: Center(
+                                              child: Text(
+                                            "J",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          )),
+                                          decoration: BoxDecoration(
+                                              color: event.player,
+                                              shape: BoxShape.circle),
                                         )
                                 ],
                               ))

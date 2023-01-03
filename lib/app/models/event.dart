@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:eventos_catan/app/models/dice.dart';
+import 'package:flutter/material.dart';
 
 class Event {
   String title;
@@ -11,6 +12,7 @@ class Event {
   bool none;
   bool newYear;
   Dice diceEvent;
+  Color player;
   Event(
       {required this.title,
       required this.imageUrl,
@@ -19,7 +21,8 @@ class Event {
       required this.dice,
       required this.diceEvent,
       this.none = false,
-      this.newYear = false});
+      this.newYear = false,
+      this.player = Colors.black});
 }
 
 none() {
