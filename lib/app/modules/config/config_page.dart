@@ -189,7 +189,6 @@ class ConfigPageState extends State<ConfigPage> {
           }
           store.setConfig(withEras == "yes", eras, players);
           erasStore.clearEra();
-          gameStore.clearDeck();
           bluePoints.clearPoints();
           redPoints.clearPoints();
           whitePoints.clearPoints();

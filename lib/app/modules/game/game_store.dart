@@ -23,12 +23,11 @@ class GameStore extends NotifierStore<Exception, List<Event>> {
   initDeck() {
     deck.shuffle();
     players = config.state.players;
-    deck = deck.map((e) {
+    for (int i = 0; i < deck.length; i++) {
       Color player = players.removeAt(0);
-      e.player = player;
+      deck[i].player = player;
       players.add(player);
-      return e;
-    }).toList();
+    }
     deck.add(newYear());
     update(deck);
   }
@@ -39,12 +38,11 @@ class GameStore extends NotifierStore<Exception, List<Event>> {
     deck.shuffle();
     deck.shuffle();
     if (players.length > 0) {
-      deck = deck.map((e) {
+      for (int i = 0; i < deck.length; i++) {
         Color player = players.removeAt(0);
-        e.player = player;
+        deck[i].player = player;
         players.add(player);
-        return e;
-      }).toList();
+      }
     }
     deck.add(newYear());
     update(deck);
